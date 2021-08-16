@@ -67,9 +67,9 @@ class DomainNameValidator
         errs << ERRS[:max_label_size] if p.size > MAX_LABEL_LENGTH
         errs << ERRS[:label_dash_begin] if p[0] == '-'
         errs << ERRS[:label_dash_end] if p[-1] == '-'
-        errs << ERRS[:illegal_chars] unless p.match(/^[a-z0-9\-\_]+$/)
+        errs << ERRS[:illegal_chars] unless p.match(/\A[a-z0-9\-\_]+\Z/)
       end
-      errs << ERRS[:top_numerical] if parts.last.match(/^[0-9]+$/)
+      errs << ERRS[:top_numerical] if parts.last.match(/\A[0-9]+\Z/)
       if parts.last.size < MIN_TLD_LENGTH || parts.last.size > MAX_TLD_LENGTH
         unless parts.last == 'arpa' ||
                parts.last == 'aero' ||

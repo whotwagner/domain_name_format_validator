@@ -73,6 +73,49 @@ describe DomainNameValidator do
       response = @validator.validate(domain)
       response.should be == false
     end
+
+    it 'should fail when an invalid ascii-character was used' do
+      blacklist = []
+      # 45 is '-' and 46 is '.'
+      for i in 0..44
+        domain = "www.exa" + i.chr + "ample.com"
+        response = @validator.validate(domain)
+        response.should be == false
+      end
+  
+      # 48 is '0'
+      i = 47
+      domain = "www.exa" + i.chr + "ample.com"
+      response = @validator.validate(domain)
+      response.should be == false
+  
+      # 65-90 is A-Z
+      for i in 58..64
+        domain = "www.exa" + i.chr + "ample.com"
+        response = @validator.validate(domain)
+        response.should be == false
+      end  
+  
+      # 95 is '_'
+      for i in 91..94
+        domain = "www.exa" + i.chr + "ample.com"
+        response = @validator.validate(domain)
+        response.should be == false
+      end
+  
+      # 97 is 'a'
+      i = 96
+      domain = "www.exa" + i.chr + "ample.com"
+      response = @validator.validate(domain)
+      response.should be == false
+  
+      for i in 123..127
+        domain = "www.exa" + i.chr + "ample.com"
+        response = @validator.validate(domain)
+        response.should be == false
+      end
+    end
+
   end
 
   describe 'Internationalized (normalized) domain names' do
