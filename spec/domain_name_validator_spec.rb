@@ -38,6 +38,12 @@ describe DomainNameValidator do
       response.should be == false
     end
 
+    it 'should pass when it finds a alpha-numeric top-level extension' do
+      response = @validator.validate('keenertech.xn--zfr164b')
+      response.should be == true
+    end
+
+
     it 'should fail when the domain name max size is exceeded' do
       domain = "a"*250 + ".com"    # 254 chars; max is 253
       response = @validator.validate(domain)
@@ -73,6 +79,17 @@ describe DomainNameValidator do
       response = @validator.validate(domain)
       response.should be == false
     end
+
+    it 'should not fail with common top level domains' do
+      File.foreach("spec/tlds-alpha-by-domain.txt") {
+        |each_line|
+        unless each_line =~ /^.*#/
+            domain =  "example." + each_line.chomp.downcase
+            response = @validator.validate(domain)
+            response.should be == true
+        end
+      }
+    end
   end
 
   describe 'Internationalized (normalized) domain names' do
@@ -94,7 +111,8 @@ describe DomainNameValidator do
     end
 
     it 'should fail if the TLD is too long' do
-      domain = "test.domain"
+      tld = "a"*64
+      domain = "test." + tld
       response = @validator.validate(domain)
       response.should be == false
     end

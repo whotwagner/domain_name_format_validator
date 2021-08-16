@@ -7,7 +7,7 @@ class DomainNameValidator
   MAX_DOMAIN_LENGTH = 253
   MAX_LABEL_LENGTH = 63
   MAX_LEVELS = 127
-  MAX_TLD_LENGTH = 3       # Except for "aero", "arpa", "info" and "museum"
+  MAX_TLD_LENGTH = 63
   MIN_LEVELS = 2
   MIN_TLD_LENGTH = 2
 
