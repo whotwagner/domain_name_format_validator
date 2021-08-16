@@ -16,6 +16,11 @@ them; many of them are very good at their well-defined roles. But none of the
 ones that I came across were very good at simply telling me whether a domain
 names was valid, or WHY it was invalid if it failed the validations.
 
+I figured out that many gems for domain name validation even have security
+issues. If you have a regex like: `^do_some_checks$` what happens if I submit
+a domain name like: `example.com\n<script>alert('xss')</script>`? This gem also
+handles such weird exceptions well.
+
 _Please note that this gem is a fork of https://github.com/dkeener/domain_name_validator which might not be maintained anymore_
 
 How It Works
@@ -108,8 +113,7 @@ Requirements
 ------------
 
 This is a Ruby gem with no run-time dependencies on anything else. It's only
-been tested under Ruby 1.9.3, but it should be compatible with all versions of
-Ruby more recent than Ruby 1.8.6.
+been tested under Ruby 3.0.0p0.
 
 Install
 -------
