@@ -38,6 +38,12 @@ describe DomainNameValidator do
       response.should be == false
     end
 
+    it 'should pass when it finds a alpha-numeric top-level extension' do
+      response = @validator.validate('keenertech.xn--zfr164b')
+      response.should be == true
+    end
+
+
     it 'should fail when the domain name max size is exceeded' do
       domain = "a"*250 + ".com"    # 254 chars; max is 253
       response = @validator.validate(domain)
