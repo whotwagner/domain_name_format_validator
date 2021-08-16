@@ -73,6 +73,17 @@ describe DomainNameValidator do
       response = @validator.validate(domain)
       response.should be == false
     end
+
+    it 'should not fail with common top level domains' do
+      File.foreach("spec/tlds-alpha-by-domain.txt") {
+        |each_line|
+        unless each_line =~ /^.*#/
+            domain =  "example." + each_line.chomp.downcase
+            response = @validator.validate(domain)
+            response.should be == true
+        end
+      }
+    end
   end
 
   describe 'Internationalized (normalized) domain names' do
@@ -94,7 +105,8 @@ describe DomainNameValidator do
     end
 
     it 'should fail if the TLD is too long' do
-      domain = "test.domain"
+      tld = "a"*64
+      domain = "test." + tld
       response = @validator.validate(domain)
       response.should be == false
     end
