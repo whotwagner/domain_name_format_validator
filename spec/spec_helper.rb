@@ -1,5 +1,5 @@
 require File.expand_path(
-    File.join(File.dirname(__FILE__), %w[.. lib domain_name_validator]))
+    File.join(File.dirname(__FILE__), %w[.. lib domain_name_format_validator]))
         
 RSpec.configure do |config|
   # == Mock Framework

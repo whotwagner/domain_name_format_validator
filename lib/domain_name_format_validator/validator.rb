@@ -2,7 +2,7 @@
 # domain names represented in ASCII, a feature that seems to be missing or
 # obscured in other more wide-ranging domain-related gems.
 
-class DomainNameValidator
+class DomainNameFormatValidator
 
   MAX_DOMAIN_LENGTH = 253
   MAX_LABEL_LENGTH = 63
