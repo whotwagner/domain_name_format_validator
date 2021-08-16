@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.platform    = Gem::Platform::RUBY
   gem.authors     = ["David Keener", "Wolfgang Hotwagner"]
   gem.email       = ["code@feedyourhead.at"]
-  gem.homepage    = "domain_name_format_validator"
+  gem.homepage    = "https://github.com/whotwagner/domain_name_format_validator"
   gem.summary     = %q{Domain Name Format Validator}
   gem.description = %q{Checks the validity of domain names.}
   gem.license     = 'MIT'

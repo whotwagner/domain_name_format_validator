@@ -2,7 +2,7 @@ domain_name_validator
 =====================
 
 Ever needed to validate a domain name? This gem will validate any domain name
-represented in ASCII.
+represented in ASCII. 
 
 The scope of this gem is deliberately focused on validating domain names. It
 simply answers the question: "Is this a real domain name?" Using this command,
@@ -15,6 +15,8 @@ components, or parse URLS, or properly handle Unicode domain names, etc. Use
 them; many of them are very good at their well-defined roles. But none of the
 ones that I came across were very good at simply telling me whether a domain
 names was valid, or WHY it was invalid if it failed the validations.
+
+_Please note that this gem is a fork of https://github.com/dkeener/domain_name_validator which might not be maintained anymore_
 
 How It Works
 ------------
@@ -114,38 +116,15 @@ Install
 
 Installation doesn't get much simpler than this:
 
-    gem install domain_name_validator
-
-Road Map
---------
-
-More types of checks will be added as they are identified. Support for
-validating top-level domains (TLD's) is also in the works (it's a bit more
-complex than you might imagine). This will also bring in the capability to
-validate effective TLD's as well, i.e. - strings that are treated as top-level
-domains by registrars around the world.
-
-Alternative Gems
-----------------
-
-If this domain_name_validator gem does not suit your needs, here are a few 
-recommended gems that may provide you with the additional power (and
-complexity) that is deliberately absent from this highly focused gem:
-
-* domain_name - A full-featured gem for parsing/manipulating domain names.
-* ip_address - For everything you need to do with Ipv4 and Ipv6 addresses.
+    gem install domain_name_format_validator
 
 
 Author
 ------
 
-David Keener
+Even much of the code was written by [David Keener](https://github.com/dkeener/domain_name_validator)
+this gem was refactored and relaunched by [Wolfgang Hotwagner](https://github.com/dkeener/domain_name_validator)
 
-He's a long-time Rubyist, with extensive experience both in the Internet
-startup world and government contracting. He is one of the founders of the
-RubyNation, DevIgnition and NationJS conferences. He speaks often at technical
-conferences, and blogs regularly on Internet-related subjects at
-KeenerTech.com.
 
 Contributors
 ------------
