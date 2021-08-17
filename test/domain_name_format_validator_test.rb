@@ -28,8 +28,7 @@ class DomainNameFormatValidatorTest < Minitest::Test
 
  def is_valid_domain?(domain)
    puts domain if @debug
-   v = DomainNameFormatValidator.new
-   v.validate(domain)
+   DomainNameFormatValidator.valid?(domain)
  end
 
 
@@ -128,7 +127,6 @@ class DomainNameFormatValidatorTest < Minitest::Test
   end
 
   def test_invalid_characters
-    blacklist = []
     # 45 is '-' and 46 is '.'
     for i in 0..44
       domain = "www.exa" + i.chr + "ample.com"

@@ -3,7 +3,7 @@
 # The purpose of this class is to provide a simple capability for validating
 # domain names represented in ASCII, a feature that seems to be missing or
 # obscured in other more wide-ranging domain-related gems.
-class DomainNameFormatValidator
+module DomainNameFormatValidator
   MAX_DOMAIN_LENGTH = 253
   MAX_LABEL_LENGTH = 63
   MAX_LEVELS = 127
@@ -38,19 +38,18 @@ class DomainNameFormatValidator
   # 4. No label, including top-level domains, can begin or end with a dash.
   # 5. Top-level names cannot be all numeric.
   # 6. A domain name cannot begin with a period.
-
-  def validate(dn, errs = [])
+  def self.valid?(domain, errs = [])
     errs.clear # Make sure the array starts out empty
-    if dn.nil?
+    if domain.nil?
       errs << ERRS[:zero_size]
     else
-      dn = dn.strip
-      errs << ERRS[:zero_size] if dn.size.zero?
+      domain = domain.strip
+      errs << ERRS[:zero_size] if domain.size.zero?
     end
 
     if errs.size.zero?
-      errs << ERRS[:max_domain_size] if dn.size > MAX_DOMAIN_LENGTH
-      parts = dn.downcase.split(".")
+      errs << ERRS[:max_domain_size] if domain.size > MAX_DOMAIN_LENGTH
+      parts = domain.downcase.split(".")
       errs << ERRS[:max_level_size] if parts.size > MAX_LEVELS
       errs << ERRS[:min_level_size] if parts.size < MIN_LEVELS
       parts.each do |p|

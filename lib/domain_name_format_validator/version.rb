@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class DomainNameFormatValidator
+module DomainNameFormatValidator
   VERSION = "0.9"
 end
