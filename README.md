@@ -6,7 +6,7 @@ domain_name_format_validator
 Ever needed to validate the format of a domain name? This gem will validate any domain name
 represented in ASCII. 
 
-The scope of this gem is deliberately focused on validating domain names. It
+The scope of this gem is deliberately focused on validating the format of domain names. It
 simply answers the question: "Is this a real domain name?" Using this command,
 you can make a realistic assessment about whether you want to store a domain
 name or URL in your database. This gem will tell you 1) that a domain is or
