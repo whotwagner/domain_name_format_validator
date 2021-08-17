@@ -18,10 +18,10 @@ them; many of them are very good at their well-defined roles. But none of the
 ones that I came across were very good at simply telling me whether a domain
 names was valid, or WHY it was invalid if it failed the validations.
 
-I figured out that many gems for domain name validation even have security
-issues. If you have a regex like: `^do_some_checks$` what happens if I submit
-a domain name like: `example.com\n<script>alert('xss')</script>`? This gem also
-handles such weird exceptions well.
+Some existing gems for domain name validation use insecure regular expressions.
+For example if you have the following regex-pattern: `^do_some_checks$`, the
+check can be bypassed by domainn names like: `example.com\n<script>alert('xss')</script>`. 
+Such a bypass doesn't work with this gem.
 
 _Please note that this gem is a fork of https://github.com/dkeener/domain_name_validator which might not be maintained anymore_
 
