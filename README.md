@@ -1,7 +1,7 @@
 domain_name_validator
 =====================
 
-Ever needed to validate a domain name? This gem will validate any domain name
+Ever needed to validate the format of a domain name? This gem will validate any domain name
 represented in ASCII. 
 
 The scope of this gem is deliberately focused on validating domain names. It
@@ -28,8 +28,7 @@ How It Works
 
 To validate a domain name:
 
-    v = DomainNameValidator.new
-    if v.validate('keenertech.com')
+    if DomainNameFormatValidator.valid?("example.com")
       # Do something
     end
 
@@ -38,8 +37,7 @@ find out why the domain ewasn't valid. To do this, simply pass an array into
 the "validate" message as the optional second argument.
 
     errs = []
-    v = DomainNameValidator.new
-    unless v.validate('keenertech.123', errs)
+    unless DomainNameFormatValidator.valid?("example.123", errs)
       puts("Errors: #{errs.inspect}")
     end
 
