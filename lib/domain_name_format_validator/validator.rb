@@ -32,6 +32,8 @@ class DomainNameFormatValidator
        'Minimum domain level limit of 2 not achieved',
     :top_numerical =>
        'The top-level domain (TLD) cannot be numerical',
+    :top_illegal_chars =>
+       'The top-level domain (TLD) must only contain a-z 0-9 and -',
     :zero_size =>
        'Zero-length domain name'
     }
@@ -70,6 +72,7 @@ class DomainNameFormatValidator
         errs << ERRS[:illegal_chars] unless p.match(/\A[a-z0-9\-\_]+\Z/)
       end
       errs << ERRS[:top_numerical] if parts.last.match(/\A[0-9]+\Z/)
+      errs << ERRS[:top_illegal_chars] unless parts.last.match(/\A[a-z0-9\-]+\Z/)
       if parts.last.size < MIN_TLD_LENGTH || parts.last.size > MAX_TLD_LENGTH
           errs << ERRS[:bogus_tld]   
       end

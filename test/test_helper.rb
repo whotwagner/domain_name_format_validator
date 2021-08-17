@@ -1,0 +1,1 @@
+require 'domain_name_format_validator'
