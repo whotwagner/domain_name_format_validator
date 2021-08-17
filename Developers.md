@@ -32,7 +32,15 @@ Testing the Code
 Testing the code is simple. Run the following command from the top level
 of the gem's directory tree:
 
-      $ bundle exec rspec spec
+      $ rake test
+
+Testing for styling issues
+--------------------------
+
+This gem was setup with rubocop. Run the following command from the top level
+of the gem's directory tree:
+
+     $ rake rubocop
 
 Creating the Gem
 ----------------

@@ -136,7 +136,4 @@ Josh Lentz, Jonathan Quigg and Dave Roberts.
 YOUR SUPPORT
 ------------
 
-Please help me make this gem as useful as possible for its admittedly limited
-purpose. If ICANN's rules change, a clearer rules interpretation becomes
-available, or new valid TLDs are added, please help out by notifying me of
-potentially useful changes, or by submitting a pull request via GitHub.
+Every contribution is welcome. Please feel free to open Pull-Requests.
