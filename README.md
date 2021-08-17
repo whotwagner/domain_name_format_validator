@@ -12,18 +12,12 @@ you can make a realistic assessment about whether you want to store a domain
 name or URL in your database. This gem will tell you 1) that a domain is or
 is not valid, and 2) if it's not valid, what the errors are. 
 
-There are other gems and libraries that parse domain names into their various
-components, or parse URLS, or properly handle Unicode domain names, etc. Use
-them; many of them are very good at their well-defined roles. But none of the
-ones that I came across were very good at simply telling me whether a domain
-names was valid, or WHY it was invalid if it failed the validations.
-
 Some existing gems for domain name validation use insecure regular expressions.
 For example if you have the following regex-pattern: `^do_some_checks$`, the
 check can be bypassed by domainn names like: `example.com\n<script>alert('xss')</script>`. 
 Such a bypass doesn't work with this gem.
 
-_Please note that this gem is a fork of https://github.com/dkeener/domain_name_validator which might not be maintained anymore_
+_Please note that this gem is a fork of https://github.com/dkeener/domain_name_validator which seems to be abandoned_
 
 How It Works
 ------------
@@ -81,12 +75,14 @@ Domain names follow some very detailed rules:
 * Top-level domain names cannot be all numeric.
 
 * The right-most label must be either a recognized TLD or a 2-letter country
-  code. The only exception is for international domain names, for which
-  TLD checking is currently bypassed.
+  code. The only exception is for international domain names
 
 * Top-level domain names cannot be all numeric.
 
 * Domain names may not begin with a period.
+
+* The characters allowed in labels are a subset of the ASCII character set, consisting of 
+  characters a through z, A through Z, digits 0 through 9, and hyphen.
 
 
 Internationalized Domain Names
