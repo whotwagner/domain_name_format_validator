@@ -1,5 +1,7 @@
-domain_name_validator
-=====================
+[![Ruby](https://github.com/whotwagner/domain_name_format_validator/actions/workflows/main.yml/badge.svg)](https://github.com/whotwagner/domain_name_format_validator/actions/workflows/main.yml)
+
+domain_name_format_validator
+============================
 
 Ever needed to validate the format of a domain name? This gem will validate any domain name
 represented in ASCII. 
