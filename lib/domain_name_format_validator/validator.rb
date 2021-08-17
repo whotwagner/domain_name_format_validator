@@ -38,6 +38,16 @@ module DomainNameFormatValidator
   # 4. No label, including top-level domains, can begin or end with a dash.
   # 5. Top-level names cannot be all numeric.
   # 6. A domain name cannot begin with a period.
+  def self.validate_parts?(parts, errs = [])
+    parts.each do |part|
+      errs << ERRS[:max_label_size] if part.size > MAX_LABEL_LENGTH
+      errs << ERRS[:label_dash_begin] if part[0] == "-"
+      errs << ERRS[:label_dash_end] if part[-1] == "-"
+      errs << ERRS[:illegal_chars] unless part.match(/\A[a-z0-9\-\_]+\Z/)
+    end
+    errs
+  end
+
   def self.valid?(domain, errs = [])
     errs.clear # Make sure the array starts out empty
     if domain.nil?
@@ -52,12 +62,7 @@ module DomainNameFormatValidator
       parts = domain.downcase.split(".")
       errs << ERRS[:max_level_size] if parts.size > MAX_LEVELS
       errs << ERRS[:min_level_size] if parts.size < MIN_LEVELS
-      parts.each do |p|
-        errs << ERRS[:max_label_size] if p.size > MAX_LABEL_LENGTH
-        errs << ERRS[:label_dash_begin] if p[0] == "-"
-        errs << ERRS[:label_dash_end] if p[-1] == "-"
-        errs << ERRS[:illegal_chars] unless p.match(/\A[a-z0-9\-\_]+\Z/)
-      end
+      errs = validate_parts?(parts, errs)
       errs << ERRS[:top_numerical] if parts.last.match(/\A[0-9]+\Z/)
       errs << ERRS[:top_illegal_chars] unless parts.last.match(/\A[a-z0-9\-]+\Z/)
       errs << ERRS[:bogus_tld] if parts.last.size < MIN_TLD_LENGTH || parts.last.size > MAX_TLD_LENGTH

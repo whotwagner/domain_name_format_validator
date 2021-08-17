@@ -24,11 +24,13 @@ require_relative 'test_helper'
 class DomainNameFormatValidatorTest < Minitest::Test
   def setup
     @debug = false
+    @err = []
   end
 
  def is_valid_domain?(domain)
    puts domain if @debug
-   DomainNameFormatValidator.valid?(domain)
+   @err.clear
+   DomainNameFormatValidator.valid?(domain, @err)
  end
 
 
@@ -42,40 +44,49 @@ class DomainNameFormatValidatorTest < Minitest::Test
     # 64 characters in hostname
     domain = 'a'*64 + ".com"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:max_label_size]
     # 64 characters inbetween
     domain = 'abc.' + 'b'*64 + ".com"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:max_label_size]
   end
 
   def test_if_label_is_zero
     domain = "www.example..com"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:illegal_chars]
   end
 
   def test_nil_is_not_allowed
     refute is_valid_domain?(nil)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:zero_size]
   end
 
   def test_empty_string_is_not_allowed
     refute is_valid_domain?("")
+    assert_includes @err, DomainNameFormatValidator::ERRS[:zero_size]
   end
 
   def test_all_numeric_tld_is_not_allowed
     assert is_valid_domain?("example.xn--zfr164b")
     refute is_valid_domain?("example.123")
+    assert_includes @err, DomainNameFormatValidator::ERRS[:top_numerical]
   end
 
   def test_tld_is_too_short
     refute is_valid_domain?("example.a")
+    assert_includes @err, DomainNameFormatValidator::ERRS[:bogus_tld]
   end
 
   def test_period_at_the_beginning_is_not_allowed
     refute is_valid_domain?(".example.com")
+    assert_includes @err, DomainNameFormatValidator::ERRS[:illegal_chars]
   end
 
   def test_fail_when_max_number_of_levels_is_exceeded
     domain = "a."*127 + "com"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:max_level_size]
   end
 
   def test_if_label_does_not_start_or_end_with_hiphen
@@ -85,20 +96,25 @@ class DomainNameFormatValidatorTest < Minitest::Test
     # hyphens at the beginning are not allowed
     domain = "-example.com"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:label_dash_begin]
     # hyphens at the end are not allowed
     domain = "example-.com"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:label_dash_end]
     # hyphens at the beginning of tld are not allowed
     domain = "example.-com"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:label_dash_begin]
     # hyphens at the end of tld are not allowed
     domain = "example.com-"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:label_dash_end]
   end
 
   def test_if_entire_hostname_is_not_bigger_than_253
     domain = 'a'*63 + '.' + 'b'*63 + '.' + 'c'*63 + '.' + 'd'*58 + '.com'
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:max_domain_size]
   end
 
   def test_if_underscore_allowed
@@ -106,7 +122,9 @@ class DomainNameFormatValidatorTest < Minitest::Test
     assert is_valid_domain?('_jabber.example_.com')
     assert is_valid_domain?('_jabber_._exa-mple_.com')
     refute is_valid_domain?('_jabber_.example_._com')
+    assert_includes @err, DomainNameFormatValidator::ERRS[:top_illegal_chars]
     refute is_valid_domain?('_jabber_.example_.com_')
+    assert_includes @err, DomainNameFormatValidator::ERRS[:top_illegal_chars]
     assert is_valid_domain?('_jabber_.example_.co-m')
   end
 
@@ -131,33 +149,39 @@ class DomainNameFormatValidatorTest < Minitest::Test
     for i in 0..44
       domain = "www.exa" + i.chr + "ample.com"
       refute is_valid_domain?(domain)
+      assert_includes @err, DomainNameFormatValidator::ERRS[:illegal_chars]
     end
 
     # 48 is '0'
     i = 47
     domain = "www.exa" + i.chr + "ample.com"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:illegal_chars]
 
     # 65-90 is A-Z
     for i in 58..64
       domain = "www.exa" + i.chr + "ample.com"
       refute is_valid_domain?(domain)
+      assert_includes @err, DomainNameFormatValidator::ERRS[:illegal_chars]
     end  
 
     # 95 is '_'
     for i in 91..94
       domain = "www.exa" + i.chr + "ample.com"
       refute is_valid_domain?(domain)
+      assert_includes @err, DomainNameFormatValidator::ERRS[:illegal_chars]
     end
 
     # 97 is 'a'
     i = 96
     domain = "www.exa" + i.chr + "ample.com"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:illegal_chars]
 
     for i in 123..127
       domain = "www.exa" + i.chr + "ample.com"
       refute is_valid_domain?(domain)
+      assert_includes @err, DomainNameFormatValidator::ERRS[:illegal_chars]
     end
   end
 
@@ -186,5 +210,6 @@ class DomainNameFormatValidatorTest < Minitest::Test
   def test_regex_bypass
     domain = "www.example.com\n; <script>alert('xss')</script>"
     refute is_valid_domain?(domain)
+    assert_includes @err, DomainNameFormatValidator::ERRS[:illegal_chars]
   end
 end
