@@ -1,3 +1,27 @@
+1.0 (2021-08-18)
+----------------
+
+* Fixed issues with newline in domain-names
+
+* Changed behavior for Top-Level-Domain-checks: they are now limited by 63
+  characters.
+
+* Changed class into a ruby module and added a error-function as requested in
+  https://github.com/dkeener/domain_name_validator/issues/6
+
+* Added tests for common top level domains and some random valid domains
+
+* Added tests for regex bypass
+
+* Ruby style: added rubocop and fixed styling issues
+
+* Replaced rspec with minitest
+
+* New name 'domain_name_format_validator' indicates that the format will be
+  validated and not if it is an existing domain or top-level-domain
+
+* Modified Rakefile it can run test-tasks and rubycop-tasks
+
 0.5 (2013-10-24)
 ----------------
 

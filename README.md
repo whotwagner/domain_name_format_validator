@@ -122,8 +122,8 @@ Installation doesn't get much simpler than this:
 Author
 ------
 
-Even much of the code was written by [David Keener](https://github.com/dkeener/domain_name_validator)
-this gem was refactored and relaunched by [Wolfgang Hotwagner](https://github.com/dkeener/domain_name_validator)
+Much of the code was written by [David Keener](https://github.com/dkeener/domain_name_validator)
+This gem was refactored and relaunched by [Wolfgang Hotwagner](https://github.com/whotwagner/domain_name_format_validator)
 
 
 Contributors
