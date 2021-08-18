@@ -34,6 +34,16 @@ of the gem's directory tree:
 
       $ rake test
 
+Lists for testing domains and top-level-domains
+-----------------------------------------------
+
+The following lists were downloaded in order to perform tests with existing
+domains and top level domains:
+
+* https://raw.githubusercontent.com/opendns/public-domain-lists/master/opendns-random-domains.txt
+
+* https://data.iana.org/TLD/tlds-alpha-by-domain.txt 
+
 Testing for styling issues
 --------------------------
 
