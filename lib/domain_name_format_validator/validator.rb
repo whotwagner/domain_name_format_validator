@@ -72,6 +72,7 @@ module DomainNameFormatValidator
     errs
   end
 
+  # see: https://github.com/dkeener/domain_name_validator/issues/6
   def self.errors(domain)
     errs = []
     errs = validate_args?(domain, errs)
