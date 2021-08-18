@@ -227,4 +227,10 @@ class DomainNameFormatValidatorTest < Minitest::Test
     refute is_valid_domain?(domain)
     assert_includes DomainNameFormatValidator.errors(domain), DomainNameFormatValidator::ERRS[:not_a_string]
   end
+
+  def test_only_one_level
+    domain = "hello"
+    refute is_valid_domain?(domain)
+    assert_includes DomainNameFormatValidator.errors(domain), DomainNameFormatValidator::ERRS[:min_level_size]
+  end
 end
