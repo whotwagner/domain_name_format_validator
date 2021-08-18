@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-# The purpose of this class is to provide a simple capability for validating
-# domain names represented in ASCII, a feature that seems to be missing or
-# obscured in other more wide-ranging domain-related gems.
+# The purpose of this module is to provide a simple capability for validating
+# domain names represented in ASCII.
 module DomainNameFormatValidator
   # Validates the proper formatting of a normalized domain name, i.e. - a
   # domain that is represented in ASCII. Thus, international domain names are
