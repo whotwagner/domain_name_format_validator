@@ -38,6 +38,9 @@ module DomainNameFormatValidator
   # 4. No label, including top-level domains, can begin or end with a dash.
   # 5. Top-level names cannot be all numeric.
   # 6. A domain name cannot begin with a period.
+
+  # this internal function validates a single label
+  # and is used by validate_parts?
   def self.validate_part?(part, errs = [])
     errs << ERRS[:max_label_size] if part.size > MAX_LABEL_LENGTH
     errs << ERRS[:label_dash_begin] if part[0] == "-"
@@ -45,6 +48,7 @@ module DomainNameFormatValidator
     errs << ERRS[:illegal_chars] unless part.match(/\A[a-z0-9\-\_]+\Z/)
   end
 
+  # This internal function validates the labels of a domain name
   def self.validate_parts?(parts, errs = [])
     errs << ERRS[:max_level_size] if parts.size > MAX_LEVELS
     errs << ERRS[:min_level_size] if parts.size < MIN_LEVELS
@@ -55,6 +59,9 @@ module DomainNameFormatValidator
     errs
   end
 
+  # this internal function validates the top level domain
+  # if its nummerical only, if illegal characters occur
+  # or if the length of the tld is not valid
   def self.validate_tld?(tld, errs = [])
     errs << ERRS[:top_numerical] if tld.match(/\A[0-9]+\Z/)
     errs << ERRS[:top_illegal_chars] unless tld.match(/\A[a-z0-9\-]+\Z/)
@@ -62,6 +69,7 @@ module DomainNameFormatValidator
     errs
   end
 
+  # This internal function validates the domain if its nil or zero
   def self.validate_args?(domain, errs = [])
     if domain.nil?
       errs << ERRS[:zero_size]
@@ -72,6 +80,8 @@ module DomainNameFormatValidator
     errs
   end
 
+  # This function validates domain names and returns an array
+  # with errors or an empty array if no error occurred.
   # see: https://github.com/dkeener/domain_name_validator/issues/6
   def self.errors(domain)
     errs = []
@@ -85,6 +95,7 @@ module DomainNameFormatValidator
     errs
   end
 
+  # This function validates domain names and returns true or false
   def self.valid?(domain)
     errs = errors(domain)
     errs.size.zero?   # TRUE if valid, FALSE otherwise
