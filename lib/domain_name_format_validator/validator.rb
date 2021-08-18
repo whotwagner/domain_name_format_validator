@@ -51,6 +51,8 @@ module DomainNameFormatValidator
     if domain.nil?
       errs << ERRS[:zero_size]
     else
+      return [ERRS[:not_a_string]] unless domain.is_a? String
+
       domain = domain.strip
       errs << ERRS[:zero_size] if domain.size.zero?
     end

@@ -22,6 +22,7 @@ module DomainNameFormatValidator
     min_level_size: "Minimum domain level limit of 2 not achieved",
     top_numerical: "The top-level domain (TLD) cannot be numerical",
     top_illegal_chars: "The top-level domain (TLD) must only contain a-z 0-9 and -",
-    zero_size: "Zero-length domain name"
+    zero_size: "Zero-length domain name",
+    not_a_string: "Domain must be a string"
   }.freeze
 end

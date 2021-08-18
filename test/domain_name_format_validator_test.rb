@@ -217,4 +217,14 @@ class DomainNameFormatValidatorTest < Minitest::Test
     refute is_valid_domain?(domain)
     assert_includes DomainNameFormatValidator.errors(domain), DomainNameFormatValidator::ERRS[:illegal_chars]
   end
+
+  def test_domain_must_be_a_string
+    domain = ["hello.com"]
+    refute is_valid_domain?(domain)
+    assert_includes DomainNameFormatValidator.errors(domain), DomainNameFormatValidator::ERRS[:not_a_string]
+
+    domain = {"hello.com": "world.com"}
+    refute is_valid_domain?(domain)
+    assert_includes DomainNameFormatValidator.errors(domain), DomainNameFormatValidator::ERRS[:not_a_string]
+  end
 end
