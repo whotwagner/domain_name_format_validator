@@ -108,8 +108,8 @@ irregardless of the presence of the "xn--" prefix within a label.
 Requirements
 ------------
 
-This is a Ruby gem with no run-time dependencies on anything else. It's only
-been tested under Ruby 3.0.0p0.
+This is a Ruby gem with no run-time dependencies on anything else. It has
+been tested under Ruby 3.0.0p0 but might work with older Ruby versions too.
 
 Install
 -------
@@ -122,8 +122,8 @@ Installation doesn't get much simpler than this:
 Author
 ------
 
-Much of the code was written by [David Keener](https://github.com/dkeener/domain_name_validator)
-This gem was refactored and relaunched by [Wolfgang Hotwagner](https://github.com/whotwagner/domain_name_format_validator)
+This gem was refactored and relaunched by [Wolfgang Hotwagner](https://github.com/whotwagner/domain_name_format_validator).
+The original code was written by [David Keener](https://github.com/dkeener/domain_name_validator).  
 
 
 Contributors
