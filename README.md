@@ -25,7 +25,7 @@ How It Works
 To validate a domain name:
 
 ```ruby
-    require 'domain_name_validator'
+    require 'domain_name_format_validator'
 
     if DomainNameFormatValidator.valid?("example.com")
       # Do something
@@ -37,7 +37,7 @@ find out why the domain ewasn't valid. To do this, simply pass an array into
 the "validate" message as the optional second argument.
 
 ```ruby
-    require 'domain_name_validator'
+    require 'domain_name_format_validator'
 
     errs = DomainNameFormatValidator.errors("example.123")
     unless errs.empty?
