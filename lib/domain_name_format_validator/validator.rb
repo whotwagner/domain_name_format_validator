@@ -72,8 +72,8 @@ module DomainNameFormatValidator
     errs
   end
 
-  def self.valid?(domain, errs = [])
-    errs.clear # Make sure the array starts out empty
+  def self.errors(domain)
+    errs = []
     errs = validate_args?(domain, errs)
     if errs.size.zero?
       errs << ERRS[:max_domain_size] if domain.size > MAX_DOMAIN_LENGTH
@@ -81,6 +81,11 @@ module DomainNameFormatValidator
       errs = validate_parts?(parts, errs)
       errs = validate_tld?(parts.last, errs)
     end
+    errs
+  end
+
+  def self.valid?(domain)
+    errs = errors(domain)
     errs.size.zero?   # TRUE if valid, FALSE otherwise
   end
 end

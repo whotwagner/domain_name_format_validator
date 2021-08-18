@@ -32,8 +32,8 @@ What about error messages? If a domain isn't valid, it's often desirable to
 find out why the domain ewasn't valid. To do this, simply pass an array into
 the "validate" message as the optional second argument.
 
-    errs = []
-    unless DomainNameFormatValidator.valid?("example.123", errs)
+    errs = DomainNameFormatValidator.errors("example.123")
+    unless errs.empty?
       puts("Errors: #{errs.inspect}")
     end
 
