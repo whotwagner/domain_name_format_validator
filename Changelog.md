@@ -22,6 +22,8 @@
 
 * Modified Rakefile it can run test-tasks and rubycop-tasks
 
+* Constants and error-messages are now placed in another ruby-file
+
 0.5 (2013-10-24)
 ----------------
 
