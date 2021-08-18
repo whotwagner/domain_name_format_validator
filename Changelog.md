@@ -1,3 +1,10 @@
+1.0.1 (2021-08-18)
+------------------
+
+* Added validation if domain name is a string
+
+* Added test for minimum levels
+
 1.0 (2021-08-18)
 ----------------
 
