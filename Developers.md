@@ -58,7 +58,7 @@ Creating the Gem
 To create the gem file for this gem, run the following command from the top
 level of the gem's directory tree:
 
-      $ gem build domain_name_validator.gemspec
+      $ rake build
 
 Pushing to RubyGems
 -------------------
@@ -66,5 +66,5 @@ Pushing to RubyGems
 Obviously, you can only do this step if you've got the appropriate privileges
 at RubyGems.org and everything is properly configured.
 
-      $ gem push domain_name_validator.gem
+      $ rake release
 
