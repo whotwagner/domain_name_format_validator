@@ -24,18 +24,26 @@ How It Works
 
 To validate a domain name:
 
+```ruby
+    require 'domain_name_validator'
+
     if DomainNameFormatValidator.valid?("example.com")
       # Do something
     end
+```
 
 What about error messages? If a domain isn't valid, it's often desirable to
 find out why the domain ewasn't valid. To do this, simply pass an array into
 the "validate" message as the optional second argument.
 
+```ruby
+    require 'domain_name_validator'
+
     errs = DomainNameFormatValidator.errors("example.123")
     unless errs.empty?
       puts("Errors: #{errs.inspect}")
     end
+```
 
 This generates the following output:
 
