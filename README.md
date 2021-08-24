@@ -1,4 +1,5 @@
 [![Ruby](https://github.com/whotwagner/domain_name_format_validator/actions/workflows/main.yml/badge.svg)](https://github.com/whotwagner/domain_name_format_validator/actions/workflows/main.yml)
+[![Gem Version](https://badge.fury.io/rb/domain_name_format_validator.svg)](https://badge.fury.io/rb/domain_name_format_validator)
 
 domain_name_format_validator
 ============================
