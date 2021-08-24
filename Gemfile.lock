@@ -1,3 +1,8 @@
+PATH
+  remote: .
+  specs:
+    domain_name_format_validator (1.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -25,12 +30,14 @@ GEM
     unicode-display_width (1.7.0)
 
 PLATFORMS
+  x86_64-darwin-19
   x86_64-linux
 
 DEPENDENCIES
+  domain_name_format_validator!
   minitest (~> 5.0)
   rake (~> 13.0)
   rubocop (~> 0.80)
 
 BUNDLED WITH
-   2.2.3
+   2.2.15
