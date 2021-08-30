@@ -84,11 +84,6 @@ Domain names follow some very detailed rules:
 
 * Top-level domain names cannot be all numeric.
 
-* The right-most label must be either a recognized TLD or a 2-letter country
-  code. The only exception is for international domain names
-
-* Top-level domain names cannot be all numeric.
-
 * Domain names may not begin with a period.
 
 * The characters allowed in labels are a subset of the ASCII character set, consisting of 
@@ -110,11 +105,6 @@ Punycode is called normalization. This gem will validate a normalized domain
 name, but not a Unicode domain name. Note, however, that it currently does not
 validate normalized TLDs against ICANN's list of valid TLDs.
 
-It's also unclear whether the "xn--" prefix should count against the label
-size limit of 63 characters. In the absence of specific guidelines, and because
-I've never actually seen an overly long label, I have chosen to apply the limit
-irregardless of the presence of the "xn--" prefix within a label.
-
 Requirements
 ------------
 
@@ -135,13 +125,6 @@ Author
 This gem was refactored and relaunched by [Wolfgang Hotwagner](https://github.com/whotwagner/domain_name_format_validator).
 The original code was written by [David Keener](https://github.com/dkeener/domain_name_validator).  
 
-
-Contributors
-------------
-
-Many thanks for the support of General Dynamics and the Department of
-Homeland Security (DHS). And more specifically on input from Andrew Finch,
-Josh Lentz, Jonathan Quigg and Dave Roberts.
 
 YOUR SUPPORT
 ------------
