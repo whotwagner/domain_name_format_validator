@@ -10,6 +10,13 @@ module DomainNameFormatValidator
   MIN_LEVELS = 2
   MIN_TLD_LENGTH = 2
 
+  class Mode
+    DNS = 1
+    HOSTNAME = 2
+    FULL = 3
+  end
+
+
   ERRS = {
     bogus_tld: "Malformed TLD: Could not possibly match any valid TLD",
     illegal_chars: "Domain label contains an illegal character",

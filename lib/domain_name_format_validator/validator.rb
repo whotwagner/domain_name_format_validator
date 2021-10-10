@@ -18,20 +18,27 @@ module DomainNameFormatValidator
 
   # this internal function validates a single label
   # and is used by validate_parts?
-  def self.validate_part?(part, errs = [])
+  def self.validate_part?(part, mode, errs = [])
+    if mode == Mode::HOSTNAME
+      pattern = %r{\A[a-z0-9\-]+\Z}
+    else
+      pattern = %r{\A[a-z0-9\-\_]+\Z}
+    end
     errs << ERRS[:max_label_size] if part.size > MAX_LABEL_LENGTH
-    errs << ERRS[:label_dash_begin] if part[0] == "-"
-    errs << ERRS[:label_dash_end] if part[-1] == "-"
-    errs << ERRS[:illegal_chars] unless part.match(/\A[a-z0-9\-\_]+\Z/)
+    if mode >= Mode::HOSTNAME
+      errs << ERRS[:label_dash_begin] if part[0] == "-"
+      errs << ERRS[:label_dash_end] if part[-1] == "-"
+      errs << ERRS[:illegal_chars] unless part.match(pattern)
+    end
   end
 
   # This internal function validates the labels of a domain name
-  def self.validate_parts?(parts, errs = [])
+  def self.validate_parts?(parts, mode, errs = [])
     errs << ERRS[:max_level_size] if parts.size > MAX_LEVELS
     errs << ERRS[:min_level_size] if parts.size < MIN_LEVELS
     errs << ERRS[:illegal_start] if parts.first[0] == "."
     parts.each do |part|
-      validate_part?(part, errs)
+      validate_part?(part, mode, errs)
     end
     errs
   end
@@ -39,9 +46,11 @@ module DomainNameFormatValidator
   # this internal function validates the top level domain
   # if its nummerical only, if illegal characters occur
   # or if the length of the tld is not valid
-  def self.validate_tld?(tld, errs = [])
-    errs << ERRS[:top_numerical] if tld.match(/\A[0-9]+\Z/)
-    errs << ERRS[:top_illegal_chars] unless tld.match(/\A[a-z0-9\-]+\Z/)
+  def self.validate_tld?(tld, mode, errs = [])
+    if mode >= Mode::HOSTNAME
+      errs << ERRS[:top_numerical] if tld.match(/\A[0-9]+\Z/)
+      errs << ERRS[:top_illegal_chars] unless tld.match(/\A[a-z0-9\-]+\Z/)
+    end
     errs << ERRS[:bogus_tld] if tld.size < MIN_TLD_LENGTH || tld.size > MAX_TLD_LENGTH
     errs
   end
@@ -62,21 +71,21 @@ module DomainNameFormatValidator
   # This function validates domain names and returns an array
   # with errors or an empty array if no error occurred.
   # see: https://github.com/dkeener/domain_name_validator/issues/6
-  def self.errors(domain)
+  def self.errors(domain, mode = Mode::FULL)
     errs = []
     errs = validate_args?(domain, errs)
     if errs.size.zero?
       errs << ERRS[:max_domain_size] if domain.size > MAX_DOMAIN_LENGTH
       parts = domain.downcase.split(".")
-      errs = validate_parts?(parts, errs)
-      errs = validate_tld?(parts.last, errs)
+      errs = validate_parts?(parts, mode, errs)
+      errs = validate_tld?(parts.last, mode, errs)
     end
     errs
   end
 
   # This function validates domain names and returns true or false
-  def self.valid?(domain)
-    errs = errors(domain)
+  def self.valid?(domain, mode = Mode::FULL)
+    errs = errors(domain, mode)
     errs.size.zero?   # TRUE if valid, FALSE otherwise
   end
 end
