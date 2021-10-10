@@ -19,17 +19,13 @@ module DomainNameFormatValidator
   # this internal function validates a single label
   # and is used by validate_parts?
   def self.validate_part?(part, mode, errs = [])
-    if mode == Mode::HOSTNAME
-      pattern = %r{\A[a-z0-9\-]+\Z}
-    else
-      pattern = %r{\A[a-z0-9\-\_]+\Z}
-    end
+    pattern = mode == Mode::HOSTNAME ? /\A[a-z0-9\-]+\Z/ : /\A[a-z0-9\-\_]+\Z/
     errs << ERRS[:max_label_size] if part.size > MAX_LABEL_LENGTH
-    if mode >= Mode::HOSTNAME
-      errs << ERRS[:label_dash_begin] if part[0] == "-"
-      errs << ERRS[:label_dash_end] if part[-1] == "-"
-      errs << ERRS[:illegal_chars] unless part.match(pattern)
-    end
+    return unless mode >= Mode::HOSTNAME
+
+    errs << ERRS[:label_dash_begin] if part[0] == "-"
+    errs << ERRS[:label_dash_end] if part[-1] == "-"
+    errs << ERRS[:illegal_chars] unless part.match(pattern)
   end
 
   # This internal function validates the labels of a domain name
